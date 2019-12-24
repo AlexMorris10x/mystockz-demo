@@ -47,16 +47,16 @@ def index():
     #     .all()
     # )
     # cash = Stocks.query.filter_by(name='username').last()
-    descending = Stocks.query.order_by(Stocks.id.desc())
-    cash = descending.first()
+    # descending = Stocks.query.order_by(Stocks.id.desc())
+    # cash = descending.first()
 
-    flash("You currnetly have")
-    flash("$")
-    flash(str(round(cash.cash, 2)))
-    flash("in your digital wallet.")
+    # flash("You currnetly have")
+    # flash("$")
+    # flash(str(round(cash.cash, 2)))
+    # flash("in your digital wallet.")
 
-    currentCash = db.session.query(Stocks).filter(
-        Stocks.name == 'username').all()
+    # currentCash = db.session.query(Stocks).filter(
+    #     Stocks.name == 'username').all()
 
     totalStocks = (
         db.session.query(Stocks.shares, Stocks.price, db.func.sum(
@@ -67,7 +67,7 @@ def index():
     return render_template(
         "home.html",
         # userStocks=userStocks,
-        currentCash=currentCash,
+        # currentCash=currentCash,
         totalStocks=totalStocks,
     )
 
