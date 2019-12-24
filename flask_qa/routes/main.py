@@ -35,40 +35,40 @@ def lookup(symbol):
 
 @main.route("/")
 def index():
-    userStocks = (
-        db.session.query(
-            Stocks.share,
-            Stocks.price,
-            db.func.sum(Stocks.shares).label("shares"))
-        .filter(Stocks.name == 'username')
-        .order_by(Stocks.share)
-        .group_by(Stocks.shares, Stocks.share, Stocks.price)
-        # .group_by(Stocks.share)
-        .all()
-    )
-    cash = Stocks.query.filter_by(name='username').last()
-    descending = Stocks.query.order_by(Stocks.id.desc())
-    cash = descending.first()
-
-    flash("You currnetly have")
-    flash("$")
-    flash(str(round(cash.cash, 2)))
-    flash("in your digital wallet.")
-
-    currentCash = db.session.query(Stocks).filter(
-        Stocks.name == 'username').all()
-
-    # totalStocks = (
-    #     db.session.query(Stocks.shares, Stocks.price, db.func.sum(
-    #         Stocks.shares * Stocks.price).label("totalStocks"))
-    #     .filter(Stocks.name == 'username').all()
+    # userStocks = (
+    #     db.session.query(
+    #         Stocks.share,
+    #         Stocks.price,
+    #         db.func.sum(Stocks.shares).label("shares"))
+    #     .filter(Stocks.name == 'username')
+    #     .order_by(Stocks.share)
+    #     .group_by(Stocks.shares, Stocks.share, Stocks.price)
+    #     # .group_by(Stocks.share)
+    #     .all()
     # )
+    # ## cash = Stocks.query.filter_by(name='username').last()
+    # descending = Stocks.query.order_by(Stocks.id.desc())
+    # cash = descending.first()
+
+    # flash("You currnetly have")
+    # flash("$")
+    # flash(str(round(cash.cash, 2)))
+    # flash("in your digital wallet.")
+
+    # currentCash = db.session.query(Stocks).filter(
+    #     Stocks.name == 'username').all()
+
+    totalStocks = (
+        db.session.query(Stocks.shares, Stocks.price, db.func.sum(
+            Stocks.shares * Stocks.price).label("totalStocks"))
+        .filter(Stocks.name == 'username').all()
+    )
 
     return render_template(
         "home.html",
-        userStocks=userStocks,
-        currentCash=currentCash,
-        # totalStocks=totalStocks,
+        # userStocks=userStocks,
+        # currentCash=currentCash,
+        totalStocks=totalStocks,
     )
 
 
