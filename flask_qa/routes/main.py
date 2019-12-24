@@ -55,20 +55,20 @@ def index():
     flash(str(round(cash.cash, 2)))
     flash("in your digital wallet.")
 
-    currentCash = db.session.query(Stocks).filter(
-        Stocks.name == 'username').all()
+    # currentCash = db.session.query(Stocks).filter(
+    #     Stocks.name == 'username').all()
 
-    totalStocks = (
-        db.session.query(Stocks.shares, Stocks.price, db.func.sum(
-            Stocks.shares * Stocks.price).label("totalStocks"))
-        .filter(Stocks.name == 'username').all()
-    )
+    # totalStocks = (
+    #     db.session.query(Stocks.shares, Stocks.price, db.func.sum(
+    #         Stocks.shares * Stocks.price).label("totalStocks"))
+    #     .filter(Stocks.name == 'username').all()
+    # )
 
     return render_template(
         "home.html",
         userStocks=userStocks,
-        currentCash=currentCash,
-        totalStocks=totalStocks,
+        # currentCash=currentCash,
+        # totalStocks=totalStocks,
     )
 
 
