@@ -40,9 +40,9 @@ def index():
             Stocks.share,
             Stocks.price,
             db.func.sum(Stocks.shares).label("shares"))
+        .group_by(Stocks.shares, Stocks.share, Stocks.price, Stocks.name)
         .filter(Stocks.name == 'username')
         .order_by(Stocks.share)
-        .group_by(Stocks.shares, Stocks.share, Stocks.price, Stocks.name)
         # .group_by(Stocks.share)
         .all()
     )
